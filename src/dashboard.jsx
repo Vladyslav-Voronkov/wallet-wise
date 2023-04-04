@@ -45,24 +45,29 @@ class useDashboardState extends React.Component {
     this.setState({ [id]: value });
   };
 
-  render() {
-    let data;
-
+  componentDidMount() {
     if (localStorage.getItem("username") === null) {
     } else {
       const reg = document.getElementById("reg");
       if (reg) {
         reg.style.display = "none";
       }
-      this.state.username = localStorage.getItem("username");
-      this.state.walletname = localStorage.getItem("walletname");
+      this.setState({
+        username: localStorage.getItem("username"),
+        walletname: localStorage.getItem("walletname"),
+      });
     }
-      data = [
-        {
-          name: "Апрель",
-          exp: 0,
-        },
-      ];
+  }
+
+  render() {
+    let data;
+
+    data = [
+      {
+        name: "Апрель",
+        exp: 0,
+      },
+    ];
     return (
       <div className="bg-white overflow-hidden">
         <NAV />
