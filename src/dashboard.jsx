@@ -1,11 +1,13 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react/no-direct-mutation-state */
 import LP from "./components/left-panel";
 import NAV from "./components/nav-panel";
 import TB from "./components/oper-table";
 
 import React from "react";
 import demo from "./img/demo.gif";
-import ass_logo from "./img/assistant_icon.gif";
 
+import add_oper from "./img/add-oper.gif";
 import login_img from "./img/login.gif";
 
 import "./App.css";
@@ -28,15 +30,64 @@ class useDashboardState extends React.Component {
     balance: 0,
     expenses: 0,
     profit: 0,
+    transaction: [],
+    tempAmount: 0,
+    tempCategory: "",
+    tempType: 0,
   };
 
   handleClick = () => {
     localStorage.setItem("username", this.state.username);
     localStorage.setItem("walletname", this.state.walletname);
+    localStorage.setItem("balance", 0);
+    localStorage.setItem("expenses", 0);
+    localStorage.setItem("profit", 0);
 
     const reg = document.getElementById("reg");
     if (reg) {
       reg.style.display = "none";
+    }
+  };
+
+  addOperation = () => {
+    const tempTransaction = {
+      amount: this.state.tempAmount,
+      category: this.state.tempCategory,
+      type: this.state.tempType,
+    };
+
+    if (this.state.tempType === 0 || this.state.tempType === "0") {
+      this.state.expenses = parseInt(this.state.expenses);
+      this.state.expenses += parseInt(this.state.tempAmount);
+      localStorage.setItem("expenses", this.state.expenses);
+      this.state.balance = parseInt(
+        parseInt(this.state.balance) - parseInt(this.state.tempAmount)
+      );
+      localStorage.setItem("balance", this.state.balance);
+    } else if (this.state.tempType === 1 || this.state.tempType === "1") {
+      this.state.profit = parseInt(this.state.profit);
+      this.state.profit += parseInt(this.state.tempAmount);
+      localStorage.setItem("profit", this.state.profit);
+      this.state.balance = parseInt(
+        parseInt(this.state.balance) + parseInt(this.state.tempAmount)
+      );
+      localStorage.setItem("balance", this.state.balance);
+    }
+
+    if (JSON.parse(localStorage.getItem("transactions")) === null) {
+    } else {
+      this.state.transaction = JSON.parse(localStorage.getItem("transactions"));
+    }
+
+    this.state.transaction.push(tempTransaction);
+    localStorage.setItem(
+      "transactions",
+      JSON.stringify(this.state.transaction)
+    );
+
+    const add = document.getElementById("add");
+    if (add) {
+      add.style.display = "none";
     }
   };
 
@@ -55,21 +106,87 @@ class useDashboardState extends React.Component {
       this.setState({
         username: localStorage.getItem("username"),
         walletname: localStorage.getItem("walletname"),
+        expenses: localStorage.getItem("expenses"),
+        profit: localStorage.getItem("profit"),
+        balance: localStorage.getItem("balance"),
       });
+    }
+    const add = document.getElementById("add");
+    if (add) {
+      add.style.display = "none";
     }
   }
 
-  render() {
-    let data;
+  modalOpen = () => {
+    const add = document.getElementById("add");
+    if (add) {
+      add.style.display = "flex";
+    }
+  };
 
-    data = [
+  render() {
+    let data = [
       {
         name: "Апрель",
-        exp: 0,
+        exp: this.state.expenses,
       },
     ];
     return (
       <div className="bg-white overflow-hidden">
+        {/* add transaction */}
+        <div
+          id="add"
+          className="fixed bg-white top-0 left-0 z-50 w-full h-screen flex flex-col justify-center items-center"
+        >
+          <div className="bg-black p-2 rounded-full">
+            <img src={add_oper} width={100} />
+          </div>
+          <h1 className="text-center font-bold text-2xl mb-5">
+            Добавить транзакцию
+          </h1>
+          <form className="md:w-1/4 w-3/4">
+            <select
+              id="type"
+              className="w-full mt-2 border-2 p-2 h-10 rounded bg-white"
+              value={this.state.tempCategory}
+              onChange={(e) => this.setState({ tempCategory: e.target.value })}
+            >
+              <option selected disabled>
+                Категория
+              </option>
+              <option value="Products">Продукты</option>
+              <option value="Ent">Развлечения</option>
+            </select>
+            <input
+              type="number"
+              name=""
+              id="tempAmount"
+              placeholder="Сумма операции"
+              className="w-full mt-2 border-2 p-2 rounded"
+              onChange={this.handleInputChange}
+            />
+            <select
+              id="type"
+              className="w-full mt-2 border-2 p-2 rounded h-10 bg-white"
+              value={this.state.tempType}
+              onChange={(e) => this.setState({ tempType: e.target.value })}
+            >
+              <option value="#" selected disabled>
+                Тип операции
+              </option>
+              <option value="0">Расход</option>
+              <option value="1">Доход</option>
+            </select>
+            <button
+              type="button"
+              onClick={this.addOperation}
+              className="w-full bg-black text-white mt-5 rounded p-2"
+            >
+              Добавить
+            </button>
+          </form>
+        </div>
+
         <NAV />
         {/* Главный блок */}
         <div className="flex">
@@ -97,7 +214,10 @@ class useDashboardState extends React.Component {
                   {this.state.walletname}
                   <img className="ml-5" src={demo} alt="" width={50} />
                 </h1>
-                <button className="bg-white rounded p-3 px-8 text-black text-sm hidden md:block font-bold hover:px-20 duration-300">
+                <button
+                  className="bg-white rounded p-3 px-8 text-black text-sm hidden md:block font-bold hover:px-20 duration-300"
+                  onClick={this.modalOpen}
+                >
                   + Добавить
                 </button>
               </div>
@@ -197,7 +317,10 @@ class useDashboardState extends React.Component {
         </div>
         <div className="fixed bottom-0 w-screen pb-5 pt-4 px-10 block md:hidden">
           <ul className="flex items-center justify-center ">
-            <button className="bg-black px-5 py-2 flex justify-center items-center rounded-md text-white text-md">
+            <button
+              className="bg-black px-5 py-2 flex justify-center items-center rounded-md text-white text-md"
+              onClick={this.modalOpen}
+            >
               + Добавить
             </button>
           </ul>
