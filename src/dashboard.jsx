@@ -47,6 +47,7 @@ class useDashboardState extends React.Component {
     if (reg) {
       reg.style.display = "none";
     }
+    window.location.reload();
   };
 
   addOperation = () => {
@@ -89,6 +90,7 @@ class useDashboardState extends React.Component {
     if (add) {
       add.style.display = "none";
     }
+    window.location.reload();
   };
 
   handleInputChange = (event) => {
@@ -121,6 +123,13 @@ class useDashboardState extends React.Component {
     const add = document.getElementById("add");
     if (add) {
       add.style.display = "flex";
+    }
+  };
+
+  closeADD = () => {
+    const add = document.getElementById("add");
+    if (add) {
+      add.style.display = "none";
     }
   };
 
@@ -184,6 +193,13 @@ class useDashboardState extends React.Component {
             >
               Добавить
             </button>
+            <button
+              type="button"
+              onClick={this.closeADD}
+              className="w-full bg-black text-white mt-5 rounded p-2"
+            >
+              Закрыть
+            </button>
           </form>
         </div>
 
@@ -209,10 +225,10 @@ class useDashboardState extends React.Component {
 
             <div>
               {/* Название кошелька и кнопка добавить на пк */}
-              <div className="p-5 flex justify-between grow flex-wrap items-center bg-black drop-shadow-xl">
-                <h1 className="text-2xl text-white font-semibold cursor-pointer flex items-center">
+              <div className="p-5 flex justify-between grow flex-wrap items-center bg-gradient-to-r from-violet-500 to-fuchsia-500  drop-shadow-xl md:rounded md:mx-20 md:my-5">
+                <h1 className="text-2xl text-white font-semibold cursor-pointer flex items-center hover:drop-shadow-xl duration-300">
                   {this.state.walletname}
-                  <img className="ml-5" src={demo} alt="" width={50} />
+                  <img className="ml-2" src={demo} alt="" width={50} />
                 </h1>
                 <button
                   className="bg-white rounded p-3 px-8 text-black text-sm hidden md:block font-bold hover:px-20 duration-300"
@@ -295,18 +311,45 @@ class useDashboardState extends React.Component {
               </div>
             </div>
             {/* График */}
-            <div className="p-2 flex items-center justify-center mt-10 mb-10">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={data}>
-                  <XAxis dataKey="name" stroke="#1D8544" />
-                  <YAxis />
-                  <Tooltip
-                    wrapperStyle={{ width: 100, backgroundColor: "#fff" }}
-                  />
-                  <CartesianGrid stroke="#fff" strokeDasharray="5 5" />
-                  <Bar dataKey="exp" fill="#1D8544" barSize={150} />
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="p-5 flex items-center justify-between mt-10 mb-10">
+              <div className="w-full bg-white mr-2">
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={data}>
+                    <XAxis dataKey="name" stroke="#1D8544" />
+                    <YAxis />
+                    <Tooltip
+                      wrapperStyle={{ width: 100, backgroundColor: "#fff" }}
+                    />
+                    <CartesianGrid stroke="#fff" strokeDasharray="5 5" />
+                    <Bar dataKey="exp" fill="#1D8544" barSize={150} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* <div className="w-1/3 bg-white p-5 rounded ">
+                <div className="flex justify-between items-center">
+                  <h1 className="text-1xl font-bold">Цель</h1>
+                  <button className="text-lg font-medium bg-black text-white p-2 px-4 hover:px-10 duration-300 rounded">
+                    Изменить цель
+                  </button>
+                </div>
+                <br />
+                <hr />
+                <br />
+
+                <div>
+                  <div className="flex justify-between items-center">
+                    <h1 className="font-bold text-xl">Iphone 14 pro max</h1>
+                    <p className="font-bold text-green-500">7400 PLN</p>
+                  </div>
+                  <h1 className="mt-4">
+                    Ориентировочная дата покупки: <span className="font-bold">22.06.2023</span>
+                  </h1>
+                  <button className="bg-black text-white w-full p-4 mt-4 rounded">
+                    Настройка приоритетов
+                  </button>
+                </div>
+              </div> */}
             </div>
 
             {/* Таблица */}

@@ -13,8 +13,8 @@ class useLeft_panel extends React.Component {
         <div className="p-5 pr-10 ">
           {/* Пользователь */}
           <div className="flex items-center flex-col">
-          <img src={avatar} alt="user-avatar" className="w-40 rounded-full" />
-          
+            <img src={avatar} alt="user-avatar" className="w-40 rounded-full" />
+
             <h1 className="ml-2 font-bold">{this.state.username}</h1>
           </div>
 
@@ -39,9 +39,10 @@ class useLeft_panel extends React.Component {
             </label>
           </div>
         </div>
-        <h1 className="text-center font-bold border-t-2 p-2 border-black">
-          Wallet Wise | Beta
-        </h1>
+
+          <h1 className="text-center font-bold p-2">
+            Wallet Wise
+          </h1>
       </div>
     );
   }
