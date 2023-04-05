@@ -29,12 +29,12 @@ class oper_table extends React.Component {
                       </div>
                       {transaction.type === 0 || transaction.type === "0" ? (
                         <h1 className="ml-10 text-red-500 text-2xl">
-                          {transaction.amount}
+                          {parseInt(transaction.amount)}
                           <span className="text-red-300 text-xl"> PLN</span>
                         </h1>
                       ) : (
                         <h1 className="ml-10 text-green-500 text-2xl">
-                          {transaction.amount}
+                          {parseInt(transaction.amount)}
                           <span className="text-green-300 text-xl"> PLN</span>
                         </h1>
                       )}
