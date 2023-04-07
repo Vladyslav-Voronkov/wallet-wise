@@ -1,5 +1,7 @@
 import React from "react"
 import avatar from "../img/default_avatar.png"
+import feedback from "../img/feedback.gif"
+import av2 from "../img/assistant_icon.gif";
 
 class useLeft_panel extends React.Component {
   state = {
@@ -8,12 +10,12 @@ class useLeft_panel extends React.Component {
   };
   render() {
     return (
-      <div className="hidden md:block w-3/3">
+      <div className="hidden md:block w-1/5">
         {/* Левый блок */}
         <div className="p-5 pr-10 ">
           {/* Пользователь */}
           <div className="flex items-center flex-col">
-            <img src={avatar} alt="user-avatar" className="w-40 rounded-full" />
+            <img src={avatar} alt="user-avatar" className="w-32 rounded-full drop-shadow-lg" />
 
             <h1 className="ml-2 font-bold">{this.state.username}</h1>
           </div>
@@ -35,6 +37,7 @@ class useLeft_panel extends React.Component {
               <ul className="text-black mt-1">
                 <li className="flex ml-2 ">📥 Dashboard</li>
                 <li className="flex ml-2">🧠 AI Assistant</li>
+                <li className="flex ml-2 items-center font-bold bg-black text-white rounded p-2 mt-2 cursor-pointer"><img src={feedback} width={50} alt="" /> Отзыв</li>
               </ul>
             </label>
           </div>

@@ -12,12 +12,14 @@ body, #root{
 }
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #373a47;
+  background: #ffffff;
+  height: 1px !important;
+  width: 30px !important;
 }
 
 /* Color/shape of burger icon bars on hover*/
 .bm-burger-bars-hover {
-  background: #393939;
+  background: #ffffff;
 }
 
 /* Position and sizing of clickable cross button */

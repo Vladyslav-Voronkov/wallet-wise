@@ -36,6 +36,15 @@ class useDashboardState extends React.Component {
     tempType: 0,
   };
 
+  target = {
+    targetName: "MacBook Pro 2022",
+    targetPrice: 7200,
+    // targetDate: new Date(2023, 3 + 3, 20, 18, 0, 0),
+    targetDate: 0,
+    profit: 12000,
+    expenses: 10000,
+  };
+
   handleClick = () => {
     localStorage.setItem("username", this.state.username);
     localStorage.setItem("walletname", this.state.walletname);
@@ -116,7 +125,12 @@ class useDashboardState extends React.Component {
     const add = document.getElementById("add");
     if (add) {
       add.style.display = "none";
+
+      this.closeTargetSettings();
     }
+
+    // Рассчет даты покупки
+    this.target.targetDate = ((this.target.targetPrice-(this.target.profit - this.target.expenses))/(this.target.profit - this.target.expenses));
   }
 
   modalOpen = () => {
@@ -133,6 +147,19 @@ class useDashboardState extends React.Component {
     }
   };
 
+  closeTargetSettings = () => {
+    const tg = document.getElementById("targetSettings");
+    if (tg) {
+      tg.style.display = "none";
+    }
+  }
+  openTargetSettings = () => {
+    const tg = document.getElementById("targetSettings");
+    if (tg) {
+      tg.style.display = "flex";
+    }
+  }
+
   render() {
     let data = [
       {
@@ -142,12 +169,57 @@ class useDashboardState extends React.Component {
     ];
     return (
       <div className="bg-white overflow-hidden">
+        {/* Target */}
+        <div
+          className="fixed w-full h-screen z-50 flex justify-center items-center rounded backdrop-blur-sm"
+          id="targetSettings"
+        >
+          <div className="bg-white md:w-1/3 w-full md:rounded">
+            <div className=" m-5">
+              <h1 className="font-bold text-2xl text-center mb-5 flex items-center justify-between bg-black text-white p-2">
+                <img src={add_oper} width={100} className="" alt="" />
+                <span>Настройки цели</span>
+              </h1>
+              <input
+                type="text"
+                placeholder="Название цели"
+                className="w-full border-2 border-black p-2 rounded"
+              />
+              <input
+                type="number"
+                placeholder="Цена"
+                className="w-full border-2 border-black p-2 rounded mt-2"
+              />
+              <input
+                type="number"
+                placeholder="Ежемесячный доход"
+                className="w-full border-2 border-black p-2 rounded mt-2"
+              />
+              <input
+                type="number"
+                placeholder="Средние ежем. расходы"
+                className="w-full border-2 border-black p-2 rounded mt-2"
+              />
+
+              <button className="mt-5 bg-black text-white font-medium text-xl w-full p-2 rounded">
+                Сохранить
+              </button>
+              <button
+                className="mt-5 bg-black text-white font-medium text-xl w-full p-2 rounded"
+                onClick={this.closeTargetSettings}
+              >
+                Закрыть
+              </button>
+              <p></p>
+            </div>
+          </div>
+        </div>
         {/* add transaction */}
         <div
           id="add"
           className="fixed bg-white top-0 left-0 z-50 w-full h-screen flex flex-col justify-center items-center"
         >
-          <div className="bg-black p-2 rounded-full">
+          <div className="bg-black p-2 rounded-full justify-center">
             <img src={add_oper} width={100} />
           </div>
           <h1 className="text-center font-bold text-2xl mb-5">
@@ -228,7 +300,7 @@ class useDashboardState extends React.Component {
               <div className="p-5 flex justify-between grow flex-wrap items-center bg-gradient-to-r from-violet-500 to-fuchsia-500  drop-shadow-xl md:rounded md:mx-20 md:my-5">
                 <h1 className="text-2xl text-white font-semibold cursor-pointer flex items-center hover:drop-shadow-xl duration-300">
                   {this.state.walletname}
-                  <img className="ml-2" src={demo} alt="" width={50} />
+                  {/* <img className="ml-2" src={demo} alt="" width={50} /> */}
                 </h1>
                 <button
                   className="bg-white rounded p-3 px-8 text-black text-sm hidden md:block font-bold hover:px-20 duration-300"
@@ -237,17 +309,20 @@ class useDashboardState extends React.Component {
                   + Добавить
                 </button>
               </div>
-              <h1 className="text-2xl font-bold text-center my-5">
+              {/* <h1 className="text-2xl font-bold text-center my-5">
                 Добро пожаловать, {this.state.username} &#128075;
-              </h1>
+              </h1> */}
               {/* Счета */}
               <div className="flex justify-between p-5 flex-col lg:flex-row">
                 {/* Блок счета */}
-                <div className="bg-white drop-shadow-lg hover:drop-shadow-lg hover:lg:w-2/3 duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full hover:bg-gray-200">
+                <div
+                  className="bg-white drop-shadow-lg hover:drop-shadow-lg hover:lg:w-2/3 duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full hover:bg-gray-200"
+                  onClick={this.modalOpen}
+                >
                   {/* balance */}
                   <div className="flex justify-center items-center">
                     <div className="flex items-center">
-                      <span className="p-2 px-4 bg-gray-900 text-white rounded-full font-bold mr-2">
+                      <span className="p-2 px-4 bg-green-700 text-white rounded-full font-bold mr-2">
                         $
                       </span>
                       <h1 className="text-xl text-gray-700 font-semibold">
@@ -266,16 +341,19 @@ class useDashboardState extends React.Component {
                 </div>
 
                 {/* Блок счета */}
-                <div className="bg-white drop-shadow-lg hover:drop-shadow-lg hover:lg:w-2/3 duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full lg:ml-2 hover:bg-gray-200">
+                <div
+                  className="bg-white drop-shadow-lg hover:drop-shadow-lg hover:lg:w-2/3 duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full lg:ml-2 hover:bg-gray-200"
+                  onClick={this.modalOpen}
+                >
                   {/* balance */}
                   <div className="flex justify-center items-center">
                     <div className="flex items-center">
                       <span className="p-2 px-4 bg-black text-white rounded-full font-bold mr-2">
                         $
                       </span>
-                      <h1 className="text-xl text-gray-700 font-semibold">
+                      <button className="text-xl text-gray-700 font-semibold">
                         Расходы
-                      </h1>
+                      </button>
                     </div>
                     {/* stats */}
                   </div>
@@ -288,7 +366,10 @@ class useDashboardState extends React.Component {
                 </div>
 
                 {/* Блок счета */}
-                <div className="bg-white drop-shadow-lg hover:drop-shadow-lg hover:lg:w-2/3 duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full lg:ml-2 hover:bg-gray-200">
+                <div
+                  className="bg-white drop-shadow-lg hover:drop-shadow-lg hover:lg:w-2/3 duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full lg:ml-2 hover:bg-gray-200"
+                  onClick={this.modalOpen}
+                >
                   {/* balance */}
                   <div className="flex justify-center items-center">
                     <div className="flex items-center">
@@ -311,8 +392,11 @@ class useDashboardState extends React.Component {
               </div>
             </div>
             {/* График */}
-            <div className="p-5 flex items-center justify-between mt-10 mb-10">
-              <div className="w-full bg-white mr-2">
+            <div className="p-5 lg:flex items-start justify-between mt-10 mb-10 block">
+              <div className="w-full bg-white mr-2 p-5 lg:drop-shadow-xl">
+                <h1 className="text-2xl font-bold text-center mb-5 border-b-2 py-2 border-black">
+                  График расходов
+                </h1>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={data}>
                     <XAxis dataKey="name" stroke="#1D8544" />
@@ -321,16 +405,24 @@ class useDashboardState extends React.Component {
                       wrapperStyle={{ width: 100, backgroundColor: "#fff" }}
                     />
                     <CartesianGrid stroke="#fff" strokeDasharray="5 5" />
-                    <Bar dataKey="exp" fill="#1D8544" barSize={150} />
+                    <Bar
+                      dataKey="exp"
+                      fill="#1D8544"
+                      barSize={50}
+                      radius={[10, 10, 0, 0]}
+                    />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
 
-              {/* <div className="w-1/3 bg-white p-5 rounded ">
+              <div className="xl:w-1/3 bg-white p-5 lg:rounded lg:drop-shadow-lg w-full">
                 <div className="flex justify-between items-center">
-                  <h1 className="text-1xl font-bold">Цель</h1>
-                  <button className="text-lg font-medium bg-black text-white p-2 px-4 hover:px-10 duration-300 rounded">
-                    Изменить цель
+                  <h1 className="text-xl font-bold">🏹 Цель</h1>
+                  <button
+                    className="text-lg font-medium bg-black text-white p-2 px-4 hover:px-6 duration-300 rounded"
+                    onClick={this.openTargetSettings}
+                  >
+                    Настройки
                   </button>
                 </div>
                 <br />
@@ -338,18 +430,24 @@ class useDashboardState extends React.Component {
                 <br />
 
                 <div>
-                  <div className="flex justify-between items-center">
-                    <h1 className="font-bold text-xl">Iphone 14 pro max</h1>
-                    <p className="font-bold text-green-500">7400 PLN</p>
+                  <div className="flex justify-between items-center ">
+                    <h1 className="font-bold text-xl md:w-1/3 w-2/5">
+                      {/* {this.target.targetName} */}
+                      {this.target.targetName}
+                    </h1>
+                    <p className="font-bold text-green-500">
+                      {this.target.targetPrice}
+                      <span className="text-green-300"> PLN</span>
+                    </p>
                   </div>
                   <h1 className="mt-4">
-                    Ориентировочная дата покупки: <span className="font-bold">22.06.2023</span>
+                    Ориентировочная дата покупки через:{" "}
+                    <span className="font-bold">
+                      {this.target.targetDate.toLocaleString()} м.
+                    </span>
                   </h1>
-                  <button className="bg-black text-white w-full p-4 mt-4 rounded">
-                    Настройка приоритетов
-                  </button>
                 </div>
-              </div> */}
+              </div>
             </div>
 
             {/* Таблица */}
