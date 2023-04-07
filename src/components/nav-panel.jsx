@@ -4,6 +4,7 @@ import avatar from "../img/default_avatar.png";
 import dash_logo from "../img/svg/dashboard.svg";
 import ai_assistant from "../img/svg/ai-assistant.svg";
 import logo from "../img/logo.png";
+import feedback from "../img/feedback.gif";
 
 class useNav_panel extends React.Component {
   state = {
@@ -13,7 +14,7 @@ class useNav_panel extends React.Component {
 
   render() {
     return (
-      <div className="md:hidden sticky top-0 bg-white flex items-center justify-between border-b-2 z-10 overflow-hidden">
+      <div className="md:hidden sticky top-0 bg-black flex items-center justify-between z-10 overflow-hidden">
         <Menu>
           <div>
             {/* Пользователь */}
@@ -31,7 +32,7 @@ class useNav_panel extends React.Component {
               <label className="text-gray-400">
                 Кошельки
                 <ul className="text-black mt-1">
-                  <h1 className="ml-2">{this.state.walletname}</h1>
+                  <h1 className="ml-2">💳 {this.state.walletname}</h1>
                 </ul>
               </label>
             </div>
@@ -41,21 +42,10 @@ class useNav_panel extends React.Component {
               <label className="text-gray-400">
                 Модули
                 <ul className="text-black mt-1">
-                  <li className="flex ">
-                    <img
-                      className="mr-2 ml-2 mb-2"
-                      src={dash_logo}
-                      alt="dash-logo"
-                    />{" "}
-                    Dashboard
-                  </li>
-                  <li className="flex">
-                    <img
-                      className="mr-2 ml-2"
-                      src={ai_assistant}
-                      alt="ai-assistant"
-                    />{" "}
-                    AI Assistant
+                  <li className="flex ">📥 Dashboard</li>
+                  <li className="flex">🧠 AI Assistant</li>
+                  <li className="flex ml-2 items-center font-bold bg-black text-white rounded p-2 mt-5 cursor-pointer">
+                    <img src={feedback} width={50} alt="" /> Отзыв
                   </li>
                 </ul>
               </label>
@@ -63,7 +53,7 @@ class useNav_panel extends React.Component {
           </div>
         </Menu>
         <div className=" text-white px-3 rounded-md font-bold">
-          <img src={logo} alt="" width={60} />
+          <img src={logo} alt="" width={60} className="bg-black p-3" />
         </div>
       </div>
     );

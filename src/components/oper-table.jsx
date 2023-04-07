@@ -7,7 +7,7 @@ class oper_table extends React.Component {
   render() {
     return (
       // Все операции
-      <div className="p-2 m-4">
+      <div className="p-2 m-4 mb-72">
         {/* Панель с надписью "Операции" и кнопкой "Показать все" */}
         <div className="border-b-4 my-2 flex items-center justify-between ">
           <h1 className="mb-2 text-2xl">Операции</h1>
