@@ -34,16 +34,14 @@ class useDashboardState extends React.Component {
     tempAmount: 0,
     tempCategory: "",
     tempType: 0,
-  };
-
-  target = {
-    targetName: "MacBook Pro 2022",
-    targetPrice: 7200,
+    targetName: localStorage.getItem("targetName"),
+    targetPrice: localStorage.getItem("targetPrice"),
     // targetDate: new Date(2023, 3 + 3, 20, 18, 0, 0),
     targetDate: 0,
-    profit: 12000,
-    expenses: 10000,
+    targetProfit: localStorage.getItem("targetProfit"),
+    targetExpenses: localStorage.getItem("targetExpenses"),
   };
+
 
   handleClick = () => {
     localStorage.setItem("username", this.state.username);
@@ -102,6 +100,15 @@ class useDashboardState extends React.Component {
     window.location.reload();
   };
 
+  saveTarget = () => {
+    localStorage.setItem("targetName", this.state.targetName);
+    localStorage.setItem("targetPrice", this.state.targetPrice);
+    localStorage.setItem("targetProfit", this.state.targetProfit);
+    localStorage.setItem("targetExpenses", this.state.targetExpenses);
+
+    window.location.reload();
+  };
+
   handleInputChange = (event) => {
     const { id, value } = event.target;
     this.setState({ [id]: value });
@@ -130,7 +137,9 @@ class useDashboardState extends React.Component {
     }
 
     // Рассчет даты покупки
-    this.target.targetDate = ((this.target.targetPrice-(this.target.profit - this.target.expenses))/(this.target.profit - this.target.expenses));
+    this.state.targetDate =
+      (this.state.targetPrice - (this.state.targetProfit - this.state.targetExpenses)) /
+      (this.state.targetProfit - this.state.targetExpenses);
   }
 
   modalOpen = () => {
@@ -152,13 +161,13 @@ class useDashboardState extends React.Component {
     if (tg) {
       tg.style.display = "none";
     }
-  }
+  };
   openTargetSettings = () => {
     const tg = document.getElementById("targetSettings");
     if (tg) {
       tg.style.display = "flex";
     }
-  }
+  };
 
   render() {
     let data = [
@@ -171,44 +180,65 @@ class useDashboardState extends React.Component {
       <div className="bg-white overflow-hidden">
         {/* Target */}
         <div
-          className="fixed w-full h-screen z-50 flex justify-center items-center rounded backdrop-blur-sm"
+          className="fixed w-full h-screen overflow-y-scroll z-50 flex justify-center md:items-center items-start p-0 rounded bg-white"
           id="targetSettings"
         >
           <div className="bg-white md:w-1/3 w-full md:rounded">
             <div className=" m-5">
-              <h1 className="font-bold text-2xl text-center mb-5 flex items-center justify-between bg-black text-white p-2">
+              <h1 className="font-bold text-2xl text-center mb-5 flex items-center justify-between bg-black text-white p-5">
                 <img src={add_oper} width={100} className="" alt="" />
                 <span>Настройки цели</span>
               </h1>
-              <input
-                type="text"
-                placeholder="Название цели"
-                className="w-full border-2 border-black p-2 rounded"
-              />
-              <input
-                type="number"
-                placeholder="Цена"
-                className="w-full border-2 border-black p-2 rounded mt-2"
-              />
-              <input
-                type="number"
-                placeholder="Ежемесячный доход"
-                className="w-full border-2 border-black p-2 rounded mt-2"
-              />
-              <input
-                type="number"
-                placeholder="Средние ежем. расходы"
-                className="w-full border-2 border-black p-2 rounded mt-2"
-              />
+              <label>
+                Цель:
+                <input
+                  type="text"
+                  placeholder="Цель"
+                  id="targetName"
+                  onChange={this.handleInputChange}
+                  value={this.state.targetName}
+                  className="w-full border-2 border-black p-2 rounded"
+                />
+              </label>
+              <label>
+                Стоимость покупки:
+                <input
+                  type="number"
+                  placeholder="Цена"
+                  id="targetPrice"
+                  onChange={this.handleInputChange}
+                  value={this.state.targetPrice}
+                  className="w-full border-2 border-black p-2 rounded"
+                />
+              </label>
+              <label>
+                Ежемесячный доход:
+                <input
+                  type="number"
+                  placeholder="Ежемесячный доход"
+                  id="targetProfit"
+                  onChange={this.handleInputChange}
+                  value={this.state.targetProfit}
+                  className="w-full border-2 border-black p-2 rounded"
+                />
+              </label>
+              <label>
+                Средние ежемесячные расходы:
+                <input
+                  type="number"
+                  placeholder="Средние ежем. расходы"
+                  id="targetExpenses"
+                  onChange={this.handleInputChange}
+                  value={this.state.targetExpenses}
+                  className="w-full border-2 border-black p-2 rounded"
+                />
+              </label>
 
-              <button className="mt-5 bg-black text-white font-medium text-xl w-full p-2 rounded">
-                Сохранить
-              </button>
               <button
                 className="mt-5 bg-black text-white font-medium text-xl w-full p-2 rounded"
-                onClick={this.closeTargetSettings}
+                onClick={this.saveTarget}
               >
-                Закрыть
+                Сохранить
               </button>
               <p></p>
             </div>
@@ -432,18 +462,18 @@ class useDashboardState extends React.Component {
                 <div>
                   <div className="flex justify-between items-center ">
                     <h1 className="font-bold text-xl md:w-1/3 w-2/5">
-                      {/* {this.target.targetName} */}
-                      {this.target.targetName}
+                      {/* {this.state.targetName} */}
+                      {this.state.targetName}
                     </h1>
                     <p className="font-bold text-green-500">
-                      {this.target.targetPrice}
+                      {this.state.targetPrice}
                       <span className="text-green-300"> PLN</span>
                     </p>
                   </div>
                   <h1 className="mt-4">
                     Ориентировочная дата покупки через:{" "}
                     <span className="font-bold">
-                      {this.target.targetDate.toLocaleString()} м.
+                      {this.state.targetDate.toLocaleString()} м.
                     </span>
                   </h1>
                 </div>
