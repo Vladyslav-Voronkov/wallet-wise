@@ -5,8 +5,8 @@ import NAV from "./components/nav-panel";
 import TB from "./components/oper-table";
 
 import React from "react";
-import demo from "./img/demo.gif";
 
+import logo from "./img/logo.png";
 import add_oper from "./img/add-oper.gif";
 import login_img from "./img/login.gif";
 
@@ -172,8 +172,8 @@ class useDashboardState extends React.Component {
   render() {
     let data = [
       {
-        name: "Апрель",
-        exp: this.state.expenses,
+        Месяц: "Апрель",
+        Расходы: this.state.expenses,
       },
     ];
     return (
@@ -234,12 +234,20 @@ class useDashboardState extends React.Component {
                 />
               </label>
 
-              <button
-                className="mt-5 bg-black text-white font-medium text-xl w-full p-2 rounded"
-                onClick={this.saveTarget}
-              >
-                Сохранить
-              </button>
+              <div className="flex justify-between items-center">
+                <button
+                  className="mt-5 bg-black text-white font-medium text-xl w-2/5 p-2 rounded"
+                  onClick={this.saveTarget}
+                >
+                  Сохранить
+                </button>
+                <button
+                  className="mt-5 bg-black text-white font-medium text-xl w-2/5 ml-2 p-2 rounded"
+                  onClick={this.closeTargetSettings}
+                >
+                  Закрыть
+                </button>
+              </div>
               <p></p>
             </div>
           </div>
@@ -262,11 +270,28 @@ class useDashboardState extends React.Component {
               value={this.state.tempCategory}
               onChange={(e) => this.setState({ tempCategory: e.target.value })}
             >
-              <option selected disabled>
-                Категория
+              <option selected>Категория</option>
+              <option value="Продукты и товары для дома">
+                Продукты и товары для дома
               </option>
-              <option value="Products">Продукты</option>
-              <option value="Ent">Развлечения</option>
+              <option value="Банковские услуги и налоги">
+                Банковские услуги и налоги
+              </option>
+              <option value="Кафе, бары и рестораны">
+                Кафе, бары и рестораны
+              </option>
+              <option value="Кафе, бары и рестораны">Красота и здоровье</option>
+              <option value="Транспорт">Транспорт</option>
+              <option value="Развлечения">Развлечения</option>
+              <option value="Абонентская плата">Абонентская плата</option>
+              <option value="Подарки и сувениры">Подарки и сувениры</option>
+              <option value="Образование">Образование</option>
+              <option value="Спорт">Спорт</option>
+              <option value="Обслуживание автомобиля">
+                Обслуживание автомобиля
+              </option>
+              <option value="Питание">Питание</option>
+              <option value="Инвестиции">Инвестиции</option>
             </select>
             <input
               type="number"
@@ -315,47 +340,37 @@ class useDashboardState extends React.Component {
             id="dashboard"
           >
             {/* Верхняя часть, там где открытый кошелек и его название */}
-            <div className="items-center sticky top-0 z-40 backdrop-blur-md bg-white text-white p-5 px-0 drop-shadow-xl hidden md:flex ">
+            <div className="items-center justify-between sticky top-0 z-40 bg-black text-white p-3 px-0 hidden md:flex px-5 ">
               {/* Активный кошелек */}
-              <div className="">
-                <h1 className="text-md text-gray-900 font-semibold">
-                  💳 Кошельки / {this.state.walletname}
+              <div className="flex justify-between items-center w-full">
+                <h1 className="text-sm text-white font-thin">
+                  <span className="text-white">Кошельки / </span>
+                  {this.state.walletname}
                 </h1>
+                <img src={logo} width={50} alt="" />
               </div>
             </div>
+
             {/* Карточки: Баланс, Расходы, Прибыль */}
 
             <div>
-              {/* Название кошелька и кнопка добавить на пк */}
-              <div className="p-5 flex justify-between grow flex-wrap items-center bg-gradient-to-r from-violet-500 to-fuchsia-500  drop-shadow-xl md:rounded md:mx-20 md:my-5">
-                <h1 className="text-2xl text-white font-semibold cursor-pointer flex items-center hover:drop-shadow-xl duration-300">
-                  {this.state.walletname}
-                  {/* <img className="ml-2" src={demo} alt="" width={50} /> */}
-                </h1>
-                <button
-                  className="bg-white rounded p-3 px-8 text-black text-sm hidden md:block font-bold hover:px-20 duration-300"
-                  onClick={this.modalOpen}
-                >
-                  + Добавить
-                </button>
-              </div>
-              {/* <h1 className="text-2xl font-bold text-center my-5">
-                Добро пожаловать, {this.state.username} &#128075;
-              </h1> */}
+              <h1 className="text-4xl font-bold text-center my-5 mt-20">
+                Добро пожаловать, <span className="text-gray-500">{this.state.username}</span>
+              </h1>
               {/* Счета */}
               <div className="flex justify-between p-5 flex-col lg:flex-row">
                 {/* Блок счета */}
                 <div
-                  className="bg-white drop-shadow-lg hover:drop-shadow-lg hover:lg:w-2/3 duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full hover:bg-gray-200"
+                  className="bg-white hover:drop-shadow-2xl duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full  hover:scale-105 lg:mx-2"
                   onClick={this.modalOpen}
                 >
                   {/* balance */}
                   <div className="flex justify-center items-center">
                     <div className="flex items-center">
-                      <span className="p-2 px-4 bg-green-700 text-white rounded-full font-bold mr-2">
+                      {/* <span className="p-2 px-4 bg-green-700 text-white rounded-full font-bold mr-2">
                         $
-                      </span>
-                      <h1 className="text-xl text-gray-700 font-semibold">
+                      </span> */}
+                      <h1 className="text-xl text-gray-700 font-thin">
                         Баланс
                       </h1>
                     </div>
@@ -364,7 +379,7 @@ class useDashboardState extends React.Component {
                   </div>
                   {/* balance */}
                   <h1 className="text-center">
-                    <h1 className="mt-5 text-3xl font-bold text-green-700">
+                    <h1 className="mt-5 text-3xl font-semibold text-gray-700">
                       {this.state.balance} PLN
                     </h1>
                   </h1>
@@ -372,24 +387,24 @@ class useDashboardState extends React.Component {
 
                 {/* Блок счета */}
                 <div
-                  className="bg-white drop-shadow-lg hover:drop-shadow-lg hover:lg:w-2/3 duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full lg:ml-2 hover:bg-gray-200"
+                  className="bg-white hover:drop-shadow-2xl duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full  hover:scale-105  lg:mx-2"
                   onClick={this.modalOpen}
                 >
                   {/* balance */}
                   <div className="flex justify-center items-center">
                     <div className="flex items-center">
-                      <span className="p-2 px-4 bg-black text-white rounded-full font-bold mr-2">
+                      {/* <span className="p-2 px-4 bg-black text-white rounded-full font-bold mr-2">
                         $
-                      </span>
-                      <button className="text-xl text-gray-700 font-semibold">
+                      </span> */}
+                      <button className="text-xl text-gray-700 font-thin">
                         Расходы
                       </button>
                     </div>
                     {/* stats */}
                   </div>
                   {/* balance */}
-                  <h1 className="mt-5 text-3xl font-bold text-center text-red-700">
-                    <h1 className="mt-5 text-3xl font-bold text-red-700">
+                  <h1 className="mt-5 text-3xl font-medium text-center text-red-700">
+                    <h1 className="mt-5 text-3xl font-semibold text-gray-700">
                       {this.state.expenses} PLN
                     </h1>
                   </h1>
@@ -397,24 +412,24 @@ class useDashboardState extends React.Component {
 
                 {/* Блок счета */}
                 <div
-                  className="bg-white drop-shadow-lg hover:drop-shadow-lg hover:lg:w-2/3 duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full lg:ml-2 hover:bg-gray-200"
+                  className="bg-white hover:drop-shadow-2xl duration-300 cursor-pointer p-5 rounded mt-5 lg:w-1/3 w-full  hover:scale-105  lg:mx-2"
                   onClick={this.modalOpen}
                 >
                   {/* balance */}
                   <div className="flex justify-center items-center">
                     <div className="flex items-center">
-                      <span className="p-2 px-4 bg-black text-white rounded-full font-bold mr-2">
+                      {/* <span className="p-2 px-4 bg-black text-white rounded-full font-bold mr-2">
                         $
-                      </span>
-                      <h1 className="text-xl text-gray-700 font-semibold">
+                      </span> */}
+                      <h1 className="text-xl text-gray-700 font-thin">
                         Прибыль
                       </h1>
                     </div>
                     {/* stats */}
                   </div>
                   {/* balance */}
-                  <h1 className="mt-5 text-3xl text-green-700 font-bold text-center">
-                    <h1 className="mt-5 text-3xl font-bold text-green-700">
+                  <h1 className="mt-5 text-3xl text-gray-700 font-bold text-center">
+                    <h1 className="mt-5 text-3xl font-semibold text-gray-700">
                       {this.state.profit} PLN
                     </h1>
                   </h1>
@@ -422,34 +437,34 @@ class useDashboardState extends React.Component {
               </div>
             </div>
             {/* График */}
-            <div className="p-5 lg:flex items-start justify-between mt-10 mb-10 block">
-              <div className="w-full bg-white mr-2 p-5 lg:drop-shadow-xl">
+            <div className="p-5 lg:flex items-start justify-between mt-20 mb-10 block">
+              <div className="w-full bg-white mr-2 p-5 cursor-pointer  hover:drop-shadow-2xl duration-300">
                 <h1 className="text-2xl font-bold text-center mb-5 border-b-2 py-2 border-black">
                   График расходов
                 </h1>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={data}>
-                    <XAxis dataKey="name" stroke="#1D8544" />
+                    <XAxis dataKey="Месяц" stroke="#1D8544" />
                     <YAxis />
                     <Tooltip
                       wrapperStyle={{ width: 100, backgroundColor: "#fff" }}
                     />
                     <CartesianGrid stroke="#fff" strokeDasharray="5 5" />
                     <Bar
-                      dataKey="exp"
+                      dataKey="Расходы"
                       fill="#1D8544"
                       barSize={50}
-                      radius={[10, 10, 0, 0]}
+                      radius={[0, 0, 0, 0]}
                     />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
 
-              <div className="xl:w-1/3 bg-white p-5 lg:rounded lg:drop-shadow-lg w-full">
+              <div className="xl:w-1/3 bg-white p-5 lg:rounded lg:hover:drop-shadow-2xl duration-300">
                 <div className="flex justify-between items-center">
-                  <h1 className="text-xl font-bold">🏹 Цель</h1>
+                  <h1 className="text-xl font-medium">🏹 Цель</h1>
                   <button
-                    className="text-lg font-medium bg-black text-white p-2 px-4 hover:px-6 duration-300 rounded"
+                    className="text-sm font-thin bg-black text-white p-2 px-4 duration-300 rounded-full"
                     onClick={this.openTargetSettings}
                   >
                     Настройки

@@ -1,7 +1,6 @@
 import React from "react"
 import avatar from "../img/default_avatar.png"
 import feedback from "../img/feedback.gif"
-import av2 from "../img/assistant_icon.gif";
 
 class useLeft_panel extends React.Component {
   state = {
@@ -10,7 +9,7 @@ class useLeft_panel extends React.Component {
   };
   render() {
     return (
-      <div className="hidden md:block w-1/5">
+      <div className="hidden md:block w-2/5 xl:w-1/5">
         {/* Левый блок */}
         <div className="p-5 pr-10 ">
           {/* Пользователь */}

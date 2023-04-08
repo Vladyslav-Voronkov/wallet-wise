@@ -1,8 +1,6 @@
 import React from "react";
 import { slide as Menu } from "react-burger-menu";
 import avatar from "../img/default_avatar.png";
-import dash_logo from "../img/svg/dashboard.svg";
-import ai_assistant from "../img/svg/ai-assistant.svg";
 import logo from "../img/logo.png";
 import feedback from "../img/feedback.gif";
 
