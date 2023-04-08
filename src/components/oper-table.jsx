@@ -1,4 +1,3 @@
-import fold_icon from "../img/svg/fold.svg";
 import React from "react";
 class oper_table extends React.Component {
   state = {
@@ -24,7 +23,7 @@ class oper_table extends React.Component {
                   <div className="bg-white rounded p-2 mb-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
-                        <img className="w-10" src={fold_icon} alt="fold-icon" />
+                        <span>&#127866;</span>
                         <h1 className="text-md ml-2">{transaction.category}</h1>
                       </div>
                       {transaction.type === 0 || transaction.type === "0" ? (
