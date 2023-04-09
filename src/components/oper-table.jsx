@@ -22,7 +22,7 @@ class oper_table extends React.Component {
                 <li key={transaction.id}>
                   <div className="bg-white rounded p-2 mb-4">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center">
+                      <div className="flex items-center w-1/3">
                         <span>&#127866;</span>
                         <h1 className="text-md ml-2">{transaction.category}</h1>
                       </div>

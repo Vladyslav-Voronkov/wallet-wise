@@ -10,6 +10,8 @@ import logo from "./img/logo.png";
 import add_oper from "./img/add-oper.gif";
 import login_img from "./img/login.gif";
 
+import bg from "./img/bg.png"
+
 import "./App.css";
 
 import {
@@ -177,13 +179,13 @@ class useDashboardState extends React.Component {
       },
     ];
     return (
-      <div className="bg-white overflow-hidden">
+      <div className="bg-white overflow-hidden ">
         {/* Target */}
         <div
-          className="fixed w-full h-screen overflow-y-scroll z-50 flex justify-center md:items-center items-start p-0 rounded bg-white"
+          className="fixed w-full h-screen overflow-y-scroll z-50 flex justify-center md:items-center items-start p-0 rounded bg-white main"
           id="targetSettings"
         >
-          <div className="bg-white md:w-1/3 w-full md:rounded">
+          <div className="bg-white md:w-1/3 w-full md:rounded ">
             <div className=" m-5">
               <h1 className="font-bold text-2xl text-center mb-5 flex items-center justify-between bg-black text-white p-5">
                 <img src={add_oper} width={100} className="" alt="" />
@@ -332,11 +334,11 @@ class useDashboardState extends React.Component {
 
         <NAV />
         {/* Главный блок */}
-        <div className="flex">
+        <div className="flex ">
           <LP />
           {/* dashboard */}
           <div
-            className="bg-gray-50 border-1 h-screen w-screen overflow-scroll dashboard"
+            className="bg-gray-50 border-1 h-screen w-screen overflow-scroll dashboard main"
             id="dashboard"
           >
             {/* Верхняя часть, там где открытый кошелек и его название */}
@@ -355,7 +357,8 @@ class useDashboardState extends React.Component {
 
             <div>
               <h1 className="text-4xl font-bold text-center my-5 mt-20">
-                Добро пожаловать, <span className="text-gray-500">{this.state.username}</span>
+                Добро пожаловать,{" "}
+                <span className="text-gray-500">{this.state.username}</span>
               </h1>
               {/* Счета */}
               <div className="flex justify-between p-5 flex-col lg:flex-row">

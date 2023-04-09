@@ -1,6 +1,8 @@
 import React from "react"
 import avatar from "../img/default_avatar.png"
-import feedback from "../img/feedback.gif"
+import walletIcon from "../img/svg/wallet.svg"
+import dashboardIcon from "../img/svg/dashboard.svg"
+import neuralIcon from "../img/svg/neural.svg"
 
 class useLeft_panel extends React.Component {
   state = {
@@ -14,7 +16,11 @@ class useLeft_panel extends React.Component {
         <div className="p-5 pr-10 ">
           {/* Пользователь */}
           <div className="flex items-center flex-col">
-            <img src={avatar} alt="user-avatar" className="w-32 rounded-full drop-shadow-lg" />
+            <img
+              src={avatar}
+              alt="user-avatar"
+              className="w-32 rounded-full drop-shadow-lg"
+            />
 
             <h1 className="ml-2 font-bold">{this.state.username}</h1>
           </div>
@@ -24,7 +30,10 @@ class useLeft_panel extends React.Component {
             <label className="text-gray-500 font-medium">
               Кошельки
               <ul className="text-black mt-1">
-                <h1 className="ml-2">💳 {this.state.walletname}</h1>
+                <h1 className="ml-2 flex items-center cursor-pointer hover:scale-105 duration-300 hover:drop-shadow-lg">
+                  <img src={walletIcon} className="mr-2" alt="" />{" "}
+                  {this.state.walletname}
+                </h1>
               </ul>
             </label>
           </div>
@@ -34,17 +43,16 @@ class useLeft_panel extends React.Component {
             <label className="text-gray-400 font-medium">
               Модули
               <ul className="text-black mt-1">
-                <li className="flex ml-2 ">📥 Dashboard</li>
-                <li className="flex ml-2">🧠 AI Assistant</li>
-                <li className="flex ml-2 items-center font-bold bg-black text-white rounded p-2 mt-2 cursor-pointer"><img src={feedback} width={50} alt="" /> Отзыв</li>
+                <li className="flex ml-2 hover:scale-105 duration-300 hover:drop-shadow-lg cursor-pointer">
+                  <img src={dashboardIcon} className="mr-2" alt="" /> Dashboard
+                </li>
+                <li className="flex ml-2 mt-1 hover:line-through duration-300 cursor-pointer hover:text-red-500">
+                  <img src={neuralIcon} className="mr-2" alt="" /> AI Assistant
+                </li>
               </ul>
             </label>
           </div>
         </div>
-
-          <h1 className="text-center font-bold p-2">
-            Wallet Wise
-          </h1>
       </div>
     );
   }
