@@ -3,6 +3,9 @@ import { slide as Menu } from "react-burger-menu";
 import avatar from "../img/default_avatar.png";
 import logo from "../img/logo.png";
 import feedback from "../img/feedback.gif";
+import walletIcon from "../img/svg/wallet.svg";
+import dashboardIcon from "../img/svg/dashboard.svg";
+import neuralIcon from "../img/svg/neural.svg";
 
 class useNav_panel extends React.Component {
   state = {
@@ -30,7 +33,10 @@ class useNav_panel extends React.Component {
               <label className="text-gray-400">
                 Кошельки
                 <ul className="text-black mt-1">
-                  <h1 className="ml-2">💳 {this.state.walletname}</h1>
+                  <h1 className="ml-2 flex items-center cursor-pointer hover:scale-105 duration-300 hover:drop-shadow-lg">
+                    <img src={walletIcon} className="mr-2" alt="" />{" "}
+                    {this.state.walletname}
+                  </h1>
                 </ul>
               </label>
             </div>
@@ -40,8 +46,14 @@ class useNav_panel extends React.Component {
               <label className="text-gray-400">
                 Модули
                 <ul className="text-black mt-1">
-                  <li className="flex ">📥 Dashboard</li>
-                  <li className="flex">🧠 AI Assistant</li>
+                  <li className="flex ml-2 hover:scale-105 duration-300 hover:drop-shadow-lg cursor-pointer">
+                    <img src={dashboardIcon} className="mr-2" alt="" />{" "}
+                    Dashboard
+                  </li>
+                  <li className="flex ml-2 mt-1 hover:line-through duration-300 cursor-pointer hover:text-red-500">
+                    <img src={neuralIcon} className="mr-2" alt="" /> AI
+                    Assistant
+                  </li>
                   <li className="flex ml-2 items-center font-bold bg-black text-white rounded p-2 mt-5 cursor-pointer">
                     <img src={feedback} width={50} alt="" /> Отзыв
                   </li>
