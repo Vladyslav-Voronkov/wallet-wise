@@ -356,10 +356,10 @@ class useDashboardState extends React.Component {
             {/* Карточки: Баланс, Расходы, Прибыль */}
 
             <div>
-              <h1 className="text-4xl font-bold text-center my-5 mt-20">
+              {/* <h1 className="text-4xl font-bold text-center my-5 mt-20">
                 Добро пожаловать,{" "}
                 <span className="text-gray-500">{this.state.username}</span>
-              </h1>
+              </h1> */}
               {/* Счета */}
               <div className="flex justify-between p-5 flex-col lg:flex-row">
                 {/* Блок счета */}
