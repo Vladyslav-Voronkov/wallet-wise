@@ -42,6 +42,7 @@ class useDashboardState extends React.Component {
     targetDate: 0,
     targetProfit: localStorage.getItem("targetProfit"),
     targetExpenses: localStorage.getItem("targetExpenses"),
+    currency: localStorage.getItem("currency"),
   };
 
 
@@ -51,6 +52,7 @@ class useDashboardState extends React.Component {
     localStorage.setItem("balance", 0);
     localStorage.setItem("expenses", 0);
     localStorage.setItem("profit", 0);
+    localStorage.setItem("currency", this.state.currency);
 
     const reg = document.getElementById("reg");
     if (reg) {
@@ -383,7 +385,7 @@ class useDashboardState extends React.Component {
                   {/* balance */}
                   <h1 className="text-center">
                     <h1 className="mt-5 text-3xl font-semibold text-gray-700">
-                      {this.state.balance} PLN
+                      {this.state.balance} {this.state.currency}
                     </h1>
                   </h1>
                 </div>
@@ -408,7 +410,7 @@ class useDashboardState extends React.Component {
                   {/* balance */}
                   <h1 className="mt-5 text-3xl font-medium text-center text-red-700">
                     <h1 className="mt-5 text-3xl font-semibold text-gray-700">
-                      {this.state.expenses} PLN
+                      {this.state.expenses} {this.state.currency}
                     </h1>
                   </h1>
                 </div>
@@ -433,7 +435,7 @@ class useDashboardState extends React.Component {
                   {/* balance */}
                   <h1 className="mt-5 text-3xl text-gray-700 font-bold text-center">
                     <h1 className="mt-5 text-3xl font-semibold text-gray-700">
-                      {this.state.profit} PLN
+                      {this.state.profit} {this.state.currency}
                     </h1>
                   </h1>
                 </div>
@@ -485,7 +487,7 @@ class useDashboardState extends React.Component {
                     </h1>
                     <p className="font-bold text-green-500">
                       {this.state.targetPrice}
-                      <span className="text-green-300"> PLN</span>
+                      <span className="text-green-300"> {this.state.currency}</span>
                     </p>
                   </div>
                   <h1 className="mt-4">
@@ -545,6 +547,12 @@ class useDashboardState extends React.Component {
               placeholder="Имя кошелька"
               className="w-full mt-2 border-2 p-2 rounded"
               onChange={this.handleInputChange}
+            />
+            <input type="text"
+            id="currency"
+            placeholder="Валюта"
+            className="w-full mt-2 border-2 p-2 rounded"
+            onChange={this.handleInputChange}
             />
           </form>
           <button
