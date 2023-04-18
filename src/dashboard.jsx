@@ -10,7 +10,7 @@ import logo from "./img/logo.png";
 import add_oper from "./img/add-oper.gif";
 import login_img from "./img/login.gif";
 
-import bg from "./img/bg.png"
+import ApexCharts, {ReactApexChart} from 'apexcharts';
 
 import "./App.css";
 
@@ -25,6 +25,7 @@ import {
 } from "recharts";
 
 class useDashboardState extends React.Component {
+  // состояние
   state = {
     modalIsOpen: true,
     username: "",
@@ -46,6 +47,8 @@ class useDashboardState extends React.Component {
   };
 
 
+
+  // Регистрация
   handleClick = () => {
     localStorage.setItem("username", this.state.username);
     localStorage.setItem("walletname", this.state.walletname);
@@ -61,6 +64,8 @@ class useDashboardState extends React.Component {
     window.location.reload();
   };
 
+
+  // Добавление операции
   addOperation = () => {
     const tempTransaction = {
       amount: this.state.tempAmount,
@@ -104,6 +109,7 @@ class useDashboardState extends React.Component {
     window.location.reload();
   };
 
+  // Сохранение цели
   saveTarget = () => {
     localStorage.setItem("targetName", this.state.targetName);
     localStorage.setItem("targetPrice", this.state.targetPrice);
@@ -113,11 +119,13 @@ class useDashboardState extends React.Component {
     window.location.reload();
   };
 
+  // Изменение поля ввода
   handleInputChange = (event) => {
     const { id, value } = event.target;
     this.setState({ [id]: value });
   };
 
+  // Старт приложения
   componentDidMount() {
     if (localStorage.getItem("username") === null) {
     } else {
@@ -173,7 +181,10 @@ class useDashboardState extends React.Component {
     }
   };
 
+  
+
   render() {
+    
     let data = [
       {
         Месяц: "Апрель",
@@ -358,10 +369,10 @@ class useDashboardState extends React.Component {
             {/* Карточки: Баланс, Расходы, Прибыль */}
 
             <div>
-              {/* <h1 className="text-4xl font-bold text-center my-5 mt-20">
+              <h1 className="text-4xl font-bold text-center my-5 mt-20">
                 Добро пожаловать,{" "}
                 <span className="text-gray-500">{this.state.username}</span>
-              </h1> */}
+              </h1>
               {/* Счета */}
               <div className="flex justify-between p-5 flex-col lg:flex-row">
                 {/* Блок счета */}
@@ -463,6 +474,7 @@ class useDashboardState extends React.Component {
                     />
                   </BarChart>
                 </ResponsiveContainer>
+                
               </div>
 
               <div className="xl:w-1/3 bg-white p-5 lg:rounded lg:hover:drop-shadow-2xl duration-300">
@@ -487,7 +499,10 @@ class useDashboardState extends React.Component {
                     </h1>
                     <p className="font-bold text-green-500">
                       {this.state.targetPrice}
-                      <span className="text-green-300"> {this.state.currency}</span>
+                      <span className="text-green-300">
+                        {" "}
+                        {this.state.currency}
+                      </span>
                     </p>
                   </div>
                   <h1 className="mt-4">
@@ -548,12 +563,18 @@ class useDashboardState extends React.Component {
               className="w-full mt-2 border-2 p-2 rounded"
               onChange={this.handleInputChange}
             />
-            <input type="text"
-            id="currency"
-            placeholder="Валюта"
-            className="w-full mt-2 border-2 p-2 rounded"
-            onChange={this.handleInputChange}
-            />
+            <select
+              name="currency"
+              id="currency"
+              className="w-full mt-2 border-2 p-2 rounded"
+              value={this.state.currency}
+              onChange={(e) => this.setState({ currency: e.target.value })}
+            >
+              <option value="PLN">PLN</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="UAH">UAH</option>
+            </select>
           </form>
           <button
             className="mt-4 rounded py-2 text-white bg-black font-bold w-full"
