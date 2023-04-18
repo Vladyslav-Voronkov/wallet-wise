@@ -15,7 +15,7 @@ class useNav_panel extends React.Component {
 
   render() {
     return (
-      <div className="md:hidden sticky top-0 bg-black flex items-center justify-between z-10 overflow-hidden">
+      <div className="md:hidden fixed top-0 w-full bg-black flex items-center justify-between z-10 overflow-hidden">
         <Menu>
           <div>
             {/* Пользователь */}
@@ -54,9 +54,12 @@ class useNav_panel extends React.Component {
                     <img src={neuralIcon} className="mr-2" alt="" /> AI
                     Assistant
                   </li>
-                  <li className="flex ml-2 items-center font-bold bg-black text-white rounded p-2 mt-5 cursor-pointer">
+                  <a
+                    className="flex ml-2 items-center font-bold bg-black text-white rounded p-2 mt-5 cursor-pointer"
+                    href="https://t.me/+s7GUH9sSFm5lMGE0"
+                  >
                     <img src={feedback} width={50} alt="" /> Отзыв
-                  </li>
+                  </a>
                 </ul>
               </label>
             </div>
