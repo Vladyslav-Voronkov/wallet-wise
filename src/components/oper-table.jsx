@@ -14,10 +14,15 @@ class oper_table extends React.Component {
       // Все операции
       <div className="p-2 m-4 mb-72">
         {/* Панель с надписью "Операции" и кнопкой "Показать все" */}
-        <div className="border-b-4 my-2 flex items-center justify-between ">
-          <button className="bg-red-500 rounded px-5 py-2 mb-5 text-white" onClick={this.deleteAccount}>Удалить аккаунт</button>
+        <div className="border-b-4 my-2 flex items-center justify-between pb-5">
           <h1 className="mb-2 text-2xl">Операции</h1>
-          <button className="p-1 text-gray-500">Показать все</button>
+          {/* <button className="p-1 text-gray-500">Показать все</button> */}
+          <button
+            className="bg-red-500 rounded p-2  text-white"
+            onClick={this.deleteAccount}
+          >
+            Удалить аккаунт
+          </button>
         </div>
         {/* Операция */}
         <div>
@@ -36,12 +41,18 @@ class oper_table extends React.Component {
                       {transaction.type === 0 || transaction.type === "0" ? (
                         <h1 className="ml-10 text-red-500 text-2xl">
                           {parseInt(transaction.amount)}
-                          <span className="text-red-300 text-xl"> {this.state.currency}</span>
+                          <span className="text-red-300 text-xl">
+                            {" "}
+                            {this.state.currency}
+                          </span>
                         </h1>
                       ) : (
                         <h1 className="ml-10 text-green-500 text-2xl">
                           {parseInt(transaction.amount)}
-                          <span className="text-green-300 text-xl"> {this.state.currency}</span>
+                          <span className="text-green-300 text-xl">
+                            {" "}
+                            {this.state.currency}
+                          </span>
                         </h1>
                       )}
                     </div>
